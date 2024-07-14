@@ -1,10 +1,11 @@
+import CustomButton from '@/components/CustomButton';
+import InputField from '@/components/InputField';
+import {useAuth} from '@/hooks/queries/useAuth';
+import useForm from '@/hooks/useForm';
+import {UserInformation, validateSignup} from '@/utils';
 import React, {useRef} from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
-import CustomButton from '../../components/CustomButton';
-import InputField from '../../components/InputField';
-import useForm from '../../hooks/useForm';
-import {UserInformation, validateSignup} from '../../utils';
 
 const SignupScreen = () => {
   const signup = useForm<UserInformation & {passwordConfirm: string}>({
@@ -13,9 +14,17 @@ const SignupScreen = () => {
   });
   const passwordRef = useRef<TextInput | null>(null);
   const passwordConfirmRef = useRef<TextInput | null>(null);
+  const {signupMutation, loginMutation} = useAuth();
 
   const handleSubmit = () => {
-    console.log(signup.values);
+    const {email, password} = signup.values;
+
+    signupMutation.mutate(
+      {email, password},
+      {
+        onSuccess: () => loginMutation.mutate({email, password}),
+      },
+    );
   };
 
   return (
@@ -51,13 +60,13 @@ const SignupScreen = () => {
           error={signup.errors.passwordConfirm}
           secureTextEntry
           touched={signup.touched.passwordConfirm}
-          returnKeyType="next"
+          returnKeyType="join"
           blurOnSubmit={false}
           onSubmitEditing={handleSubmit}
           {...signup.getTextInputProps('passwordConfirm')}
         />
       </View>
-      <CustomButton label="회원가입" />
+      <CustomButton label="회원가입" onPress={handleSubmit} />
     </SafeAreaView>
   );
 };

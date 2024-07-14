@@ -1,10 +1,11 @@
+import CustomButton from '@/components/CustomButton';
+import InputField from '@/components/InputField';
+import {useAuth} from '@/hooks/queries/useAuth';
+import useForm from '@/hooks/useForm';
+import {UserInformation, validateLogin} from '@/utils';
 import React, {useRef} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import CustomButton from '../../components/CustomButton';
-import InputField from '../../components/InputField';
-import useForm from '../../hooks/useForm';
-import {UserInformation, validateLogin} from '../../utils';
 
 const LoginScreen = () => {
   const login = useForm<UserInformation>({
@@ -12,9 +13,10 @@ const LoginScreen = () => {
     validate: validateLogin,
   });
   const passwordRef = useRef<TextInput | null>(null);
+  const {loginMutation} = useAuth();
 
   const handleSubmit = () => {
-    console.log(login.values);
+    loginMutation.mutate(login.values);
   };
 
   return (
