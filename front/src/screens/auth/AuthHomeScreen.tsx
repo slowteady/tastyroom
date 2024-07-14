@@ -1,9 +1,9 @@
+import CustomButton from '@/components/CustomButton';
+import {authNavigations} from '@/constants/navigations';
+import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React from 'react';
 import {Dimensions, Image, SafeAreaView, StyleSheet, View} from 'react-native';
-import CustomButton from '../../components/CustomButton';
-import {authNavigations} from '../../constants/navigations';
-import {AuthStackParamList} from '../../navigations/stack/AuthStackNavigator';
 
 const AuthHomeScreen = ({
   navigation,
@@ -14,7 +14,7 @@ const AuthHomeScreen = ({
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require('../../assets/main.jpeg')}
+          source={require('@/assets/main.jpeg')}
         />
       </View>
       <View style={styles.buttonContainer}>
