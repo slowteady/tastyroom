@@ -39,13 +39,16 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = tastyroom/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = tastyroom/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-tastyroom-tastyroomTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tastyroom-tastyroomTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25964ACB2C4A977900CAB2E1 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		25964ACC2C4A977900CAB2E1 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		25964ACD2C4A977900CAB2E1 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-tastyroom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tastyroom.debug.xcconfig"; path = "Target Support Files/Pods-tastyroom/Pods-tastyroom.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-tastyroom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tastyroom.release.xcconfig"; path = "Target Support Files/Pods-tastyroom/Pods-tastyroom.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-tastyroom-tastyroomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tastyroom-tastyroomTests.debug.xcconfig"; path = "Target Support Files/Pods-tastyroom-tastyroomTests/Pods-tastyroom-tastyroomTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-tastyroom.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tastyroom.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = tastyroom/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-tastyroom-tastyroomTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tastyroom-tastyroomTests.release.xcconfig"; path = "Target Support Files/Pods-tastyroom-tastyroomTests/Pods-tastyroom-tastyroomTests.release.xcconfig"; sourceTree = "<group>"; };
-		A4C522088E1E99E28CEA2315 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = tastyroom/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A4C522088E1E99E28CEA2315 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = tastyroom/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -89,6 +92,7 @@
 		13B07FAE1A68108700A75B9A /* tastyroom */ = {
 			isa = PBXGroup;
 			children = (
+				25964ACA2C4A96C700CAB2E1 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -99,6 +103,16 @@
 				A4C522088E1E99E28CEA2315 /* PrivacyInfo.xcprivacy */,
 			);
 			name = tastyroom;
+			sourceTree = "<group>";
+		};
+		25964ACA2C4A96C700CAB2E1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				25964ACB2C4A977900CAB2E1 /* Ionicons.ttf */,
+				25964ACC2C4A977900CAB2E1 /* MaterialIcons.ttf */,
+				25964ACD2C4A977900CAB2E1 /* Octicons.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
