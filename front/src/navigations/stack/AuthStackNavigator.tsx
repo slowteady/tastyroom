@@ -19,6 +19,7 @@ const AuthStackNavigator = () => {
       screenOptions={{
         contentStyle: {backgroundColor: 'white'},
         headerTitleStyle: {fontSize: 15},
+        headerBackTitleVisible: false,
         headerStyle: {backgroundColor: 'white'},
       }}>
       <Stack.Screen
