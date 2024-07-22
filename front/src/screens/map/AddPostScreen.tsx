@@ -1,12 +1,17 @@
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import CustomButton from '@/components/CustomButton';
 import InputField from '@/components/InputField';
+import MarkerSelector from '@/components/MarkerSelector';
+import ScoreInput from '@/components/ScoreInput';
 import {colors, mapNavigations} from '@/constants';
+import {useMutateCreatePost} from '@/hooks/queries/useMutateCreatePost';
 import useForm from '@/hooks/useForm';
+import useGetAddress from '@/hooks/useGetAddress';
 import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
+import {MarkerColor} from '@/types/domain';
 import {validateAddPost} from '@/utils';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -22,29 +27,63 @@ type AddPostScreenProps = NativeStackScreenProps<
 >;
 
 const AddPostScreen = ({route, navigation}: AddPostScreenProps) => {
+  const descriptionRef = useRef<TextInput | null>(null);
+  const createPost = useMutateCreatePost();
+  const {location} = route.params;
   const addPost = useForm({
     initialValue: {title: '', description: ''},
     validate: validateAddPost,
   });
-  const descriptionRef = useRef<TextInput | null>(null);
-  const {location} = route.params;
+  const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
+  const [score, setScore] = useState(5);
+  const address = useGetAddress(location);
 
-  const handleSubmit = () => {
-    //
-  };
+  const handleSubmit = useCallback(() => {
+    const body = {
+      date: new Date(),
+      title: addPost.values.title,
+      description: addPost.values.description,
+      color: markerColor,
+      score,
+      imageUris: [],
+    };
+    createPost.mutate(
+      {address, ...location, ...body},
+      {
+        onSuccess: () => navigation.goBack(),
+      },
+    );
+  }, [
+    addPost.values.description,
+    addPost.values.title,
+    address,
+    createPost,
+    location,
+    markerColor,
+    navigation,
+    score,
+  ]);
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => AddPostHeaderRight(handleSubmit),
     });
-  }, [navigation]);
+  }, [handleSubmit, navigation]);
+
+  const handleSelectMarker = (name: MarkerColor) => {
+    setMarkerColor(name);
+  };
+
+  const handleChangeScore = (value: number) => {
+    setScore(value);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.contentContainer}>
         <View style={styles.inputContainer}>
           <InputField
-            value=""
+            value={address}
             disabled
             icon={
               <Opticons name="location" size={16} color={colors.GRAY_500} />
@@ -70,6 +109,12 @@ const AddPostScreen = ({route, navigation}: AddPostScreenProps) => {
             multiline
             {...addPost.getTextInputProps('description')}
           />
+          <MarkerSelector
+            markerColor={markerColor}
+            onPressMarker={handleSelectMarker}
+            score={score}
+          />
+          <ScoreInput score={score} onChangeScore={handleChangeScore} />
         </View>
       </ScrollView>
     </SafeAreaView>

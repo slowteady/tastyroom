@@ -1,5 +1,6 @@
 import CustomMarker from '@/components/CustomMarker';
 import {alerts, colors, mapNavigations} from '@/constants';
+import {useGetMarkers} from '@/hooks/queries/useGetMarkers';
 import usePermission from '@/hooks/usePermission';
 import useUserLocation from '@/hooks/useUserLocation';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
@@ -30,6 +31,7 @@ const MapHomeScreen = () => {
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng | null>();
+  const {data: markers = []} = useGetMarkers();
   usePermission('LOCATION');
 
   const handlePressUserLocation = () => {
@@ -74,7 +76,14 @@ const MapHomeScreen = () => {
         followsUserLocation
         showsMyLocationButton={false}
         onLongPress={handleLongPressMapView}>
-        <CustomMarker color="RED" coordinate={userLocation} />
+        {markers.map(({id, color, score, ...coordinate}) => (
+          <CustomMarker
+            key={id}
+            color={color}
+            score={score}
+            coordinate={coordinate}
+          />
+        ))}
         {selectLocation && (
           <Callout>
             <CustomMarker color="BLUE" coordinate={selectLocation} />
