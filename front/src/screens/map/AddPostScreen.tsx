@@ -1,14 +1,18 @@
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import CustomButton from '@/components/CustomButton';
 import DatePickerOptions from '@/components/DatePickerOptions';
+import ImageInput from '@/components/ImageInput';
 import InputField from '@/components/InputField';
 import MarkerSelector from '@/components/MarkerSelector';
+import PreviewImageList from '@/components/PreviewImageList';
 import ScoreInput from '@/components/ScoreInput';
 import {colors, mapNavigations} from '@/constants';
 import {useMutateCreatePost} from '@/hooks/queries/useMutateCreatePost';
 import useForm from '@/hooks/useForm';
 import useGetAddress from '@/hooks/useGetAddress';
+import useImagePicker from '@/hooks/useImagePicker';
 import useModal from '@/hooks/useModal';
+import usePermission from '@/hooks/usePermission';
 import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import {MarkerColor} from '@/types/domain';
 import {getDateWithSeparator, validateAddPost} from '@/utils';
@@ -42,6 +46,8 @@ const AddPostScreen = ({route, navigation}: AddPostScreenProps) => {
   const [isPicked, setIsPicked] = useState(false);
   const address = useGetAddress(location);
   const dateOption = useModal();
+  const ImagePicker = useImagePicker({initialImage: []});
+  usePermission('PHOTO');
 
   const handleSubmit = useCallback(() => {
     const body = {
@@ -135,6 +141,10 @@ const AddPostScreen = ({route, navigation}: AddPostScreenProps) => {
             score={score}
           />
           <ScoreInput score={score} onChangeScore={handleChangeScore} />
+          <View style={styles.imagesViewer}>
+            <ImageInput onChange={ImagePicker.handleChange} />
+            <PreviewImageList imageUris={ImagePicker.imageUris} />
+          </View>
           <DatePickerOptions
             date={date}
             isVisible={dateOption.isVisible}
@@ -159,6 +169,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     marginBottom: 10,
+  },
+  imagesViewer: {
+    flexDirection: 'row',
   },
 });
 
