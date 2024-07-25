@@ -143,7 +143,11 @@ const AddPostScreen = ({route, navigation}: AddPostScreenProps) => {
           <ScoreInput score={score} onChangeScore={handleChangeScore} />
           <View style={styles.imagesViewer}>
             <ImageInput onChange={ImagePicker.handleChange} />
-            <PreviewImageList imageUris={ImagePicker.imageUris} />
+            <PreviewImageList
+              imageUris={ImagePicker.imageUris}
+              onDelete={ImagePicker.deleteImageUri}
+              onChangeOrder={ImagePicker.changeImageUrisOrder}
+            />
           </View>
           <DatePickerOptions
             date={date}
