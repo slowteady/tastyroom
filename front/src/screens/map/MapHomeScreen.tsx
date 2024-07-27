@@ -1,6 +1,8 @@
 import CustomMarker from '@/components/CustomMarker';
+import MarkerModal from '@/components/MarkerModal';
 import {alerts, colors, mapNavigations} from '@/constants';
 import {useGetMarkers} from '@/hooks/queries/useGetMarkers';
+import useModal from '@/hooks/useModal';
 import usePermission from '@/hooks/usePermission';
 import useUserLocation from '@/hooks/useUserLocation';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
@@ -31,20 +33,31 @@ const MapHomeScreen = () => {
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng | null>();
+  const [markerId, setMarkerId] = useState<number | null>(null);
   const {data: markers = []} = useGetMarkers();
+  const markerModal = useModal();
   usePermission('LOCATION');
+
+  const moveMapView = (coordinate: LatLng) => {
+    mapRef.current?.animateToRegion({
+      ...coordinate,
+      longitudeDelta: 0.0922,
+      latitudeDelta: 0.0421,
+    });
+  };
+
+  const handlePressMarker = (id: number, coordinate: LatLng) => {
+    moveMapView(coordinate);
+    setMarkerId(id);
+    markerModal.show();
+  };
 
   const handlePressUserLocation = () => {
     if (isUserLocationError) {
       return;
     }
 
-    mapRef.current?.animateToRegion({
-      latitude: userLocation.latitude,
-      longitude: userLocation.longitude,
-      longitudeDelta: 0.0922,
-      latitudeDelta: 0.0421,
-    });
+    moveMapView(userLocation);
   };
 
   const handleLongPressMapView = ({nativeEvent}: LongPressEvent) => {
@@ -87,6 +100,7 @@ const MapHomeScreen = () => {
             color={color}
             score={score}
             coordinate={coordinate}
+            onPress={() => handlePressMarker(id, coordinate)}
           />
         ))}
         {selectLocation && (
@@ -108,6 +122,12 @@ const MapHomeScreen = () => {
           <MaterialIcons name="my-location" color={colors.WHITE} size={25} />
         </Pressable>
       </View>
+
+      <MarkerModal
+        markerId={markerId}
+        isVisible={markerModal.isVisible}
+        hide={markerModal.hide}
+      />
     </>
   );
 };

@@ -56,7 +56,7 @@ const AddPostScreen = ({route, navigation}: AddPostScreenProps) => {
       description: addPost.values.description,
       color: markerColor,
       score,
-      imageUris: [],
+      imageUris: ImagePicker.imageUris,
     };
     createPost.mutate(
       {address, ...location, ...body},
@@ -65,6 +65,7 @@ const AddPostScreen = ({route, navigation}: AddPostScreenProps) => {
       },
     );
   }, [
+    ImagePicker.imageUris,
     addPost.values.description,
     addPost.values.title,
     address,

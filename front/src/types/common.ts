@@ -21,7 +21,7 @@ export type UseMutationCustomOptions<
 
 export type UseQueryCustomOptions<
   TQueryFnData = unknown,
-  TData = unknown,
+  TData = TQueryFnData,
 > = Omit<
   UseQueryOptions<TQueryFnData, ResponseError, TData, QueryKey>,
   'queryKey'
