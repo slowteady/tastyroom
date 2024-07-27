@@ -3,7 +3,7 @@ import React, {ReactNode} from 'react';
 import {Pressable, PressableProps, StyleSheet, Text} from 'react-native';
 
 interface HeaderButtonProps extends PressableProps {
-  labelText: string;
+  labelText?: string;
   icon?: ReactNode;
   hasError?: boolean;
 }

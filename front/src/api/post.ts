@@ -18,3 +18,9 @@ export const getPost = async (id: number): Promise<ResponseSinglePost> => {
 
   return data;
 };
+
+export const getPosts = async (page = 1): Promise<ResponsePost[]> => {
+  const {data} = await axiosInstance.get(`/posts/my?page=${page}`);
+
+  return data;
+};
