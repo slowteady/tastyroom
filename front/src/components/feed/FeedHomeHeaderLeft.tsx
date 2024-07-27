@@ -6,7 +6,7 @@ import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import HeaderButton from './HeaderButton';
+import HeaderButton from '../common/HeaderButton';
 
 type FeedHomeHeaderLeftProps = {
   navigation: CompositeNavigationProp<

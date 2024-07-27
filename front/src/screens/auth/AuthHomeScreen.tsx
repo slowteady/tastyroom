@@ -1,4 +1,4 @@
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/common/CustomButton';
 import {authNavigations} from '@/constants/navigations';
 import {AuthStackParamList} from '@/navigations/stack/AuthStackNavigator';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
