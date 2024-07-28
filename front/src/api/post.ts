@@ -24,3 +24,9 @@ export const getPosts = async (page = 1): Promise<ResponsePost[]> => {
 
   return data;
 };
+
+export const deletePost = async (id: number) => {
+  const {data} = await axiosInstance.delete(`/posts/${id}`);
+
+  return data;
+};

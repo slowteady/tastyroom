@@ -1,5 +1,6 @@
 import CustomButton from '@/components/common/CustomButton';
 import PreviewImageList from '@/components/common/PreviewImageList';
+import FeedDetailOption from '@/components/feed/FeedDetailOption';
 import {
   colorHex,
   colors,
@@ -8,14 +9,16 @@ import {
   mapNavigations,
 } from '@/constants';
 import useGetPost from '@/hooks/queries/useGetPost';
+import useModal from '@/hooks/useModal';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
+import useDetailPostStore from '@/store/useDetailPostStore';
 import useLocationStore from '@/store/useLocationStore';
 import {getDateLocaleFormat} from '@/utils';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Dimensions,
   Image,
@@ -44,6 +47,12 @@ const FeedDetailScreen = ({route, navigation}: FeedDetailScreenProps) => {
   const {data: post, isPending, isError} = useGetPost(id);
   const insets = useSafeAreaInsets();
   const {setMoveLocation} = useLocationStore();
+  const detailOption = useModal();
+  const {setDetailPost} = useDetailPostStore();
+
+  useEffect(() => {
+    post && setDetailPost(post);
+  }, [post, setDetailPost]);
 
   if (isPending || isError) {
     return <></>;
@@ -75,7 +84,12 @@ const FeedDetailScreen = ({route, navigation}: FeedDetailScreenProps) => {
               color={colors.WHITE}
               onPress={() => navigation.goBack()}
             />
-            <Ionicons name="ellipsis-vertical" size={30} color={colors.WHITE} />
+            <Ionicons
+              name="ellipsis-vertical"
+              size={30}
+              color={colors.WHITE}
+              onPress={detailOption.show}
+            />
           </View>
         </SafeAreaView>
 
@@ -167,6 +181,11 @@ const FeedDetailScreen = ({route, navigation}: FeedDetailScreenProps) => {
           />
         </View>
       </View>
+
+      <FeedDetailOption
+        isVisible={detailOption.isVisible}
+        hideOption={detailOption.hide}
+      />
     </>
   );
 };
