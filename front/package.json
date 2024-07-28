@@ -6,7 +6,7 @@
     "android": "react-native run-android --port=8082",
     "ios": "react-native run-ios --simulator=\"iPhone 15\" --port=8083",
     "lint": "eslint .",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
     "test": "jest"
   },
   "dependencies": {
