@@ -23,7 +23,7 @@ export const getDateWithSeparator = (
   ].join(separator);
 };
 
-export const getDataLocaleFormat = (dateString: Date | string) => {
+export const getDateLocaleFormat = (dateString: Date | string) => {
   const {year, month, day} = getDateDetails(dateString);
 
   return `${year}년 ${month}월 ${day}일`;
