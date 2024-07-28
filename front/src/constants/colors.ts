@@ -18,3 +18,11 @@ export const colors = {
   RED_300: '#FFB4B4',
   RED_500: '#FF5F5F',
 };
+
+export const colorHex = {
+  RED: colors.PINK_400,
+  YELLOW: colors.YELLOW_400,
+  GREEN: colors.GREEN_400,
+  BLUE: colors.BLUE_400,
+  PURPLE: colors.PURPLE_400,
+};

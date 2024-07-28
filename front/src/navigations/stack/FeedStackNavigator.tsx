@@ -7,7 +7,7 @@ import React from 'react';
 
 export type FeedStackParamList = {
   [feedNavigations.FEED_HOME]: undefined;
-  [feedNavigations.FEED_DETAIL]: undefined;
+  [feedNavigations.FEED_DETAIL]: {id: number};
 };
 
 const FeedStackNavigator = () => {
@@ -29,7 +29,14 @@ const FeedStackNavigator = () => {
           headerLeft: () => FeedHomeHeaderLeft(navigation),
         })}
       />
-      <Stack.Screen name="FeedDetail" component={FeedDetailScreen} />
+      <Stack.Screen
+        name="FeedDetail"
+        component={FeedDetailScreen}
+        options={{
+          headerShown: false,
+          headerTitle: '',
+        }}
+      />
     </Stack.Navigator>
   );
 };
