@@ -46,3 +46,15 @@ export const updatePost = async ({
 
   return data;
 };
+
+export const updateFavoritePost = async (id: number): Promise<number> => {
+  const {data} = await axiosInstance.post(`/favorites/${id}`);
+
+  return data;
+};
+
+export const getFavoritePost = async (page = 1): Promise<ResponsePost[]> => {
+  const {data} = await axiosInstance.get(`/favorites/my?page=${page}`);
+
+  return data;
+};
