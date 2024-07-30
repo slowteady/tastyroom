@@ -1,5 +1,6 @@
 import EditPostScreen from '@/components/feed/EditPostScreen';
 import FeedHomeHeaderLeft from '@/components/feed/FeedHomeHeaderLeft';
+import ImageZoomScreen from '@/components/feed/ImageZoomScreen';
 import {feedNavigations} from '@/constants';
 import FeedDetailScreen from '@/screens/feed/FeedDetailScreen';
 import FeedHomeScreen from '@/screens/feed/FeedHomeScreen';
@@ -11,6 +12,7 @@ export type FeedStackParamList = {
   [feedNavigations.FEED_HOME]: undefined;
   [feedNavigations.FEED_DETAIL]: {id: number};
   [feedNavigations.EDIT_POST]: {location: LatLng};
+  [feedNavigations.IMAGE_ZOOM]: {index: number};
 };
 
 const FeedStackNavigator = () => {
@@ -45,6 +47,13 @@ const FeedStackNavigator = () => {
         component={EditPostScreen}
         options={{
           headerTitle: '장소 수정',
+        }}
+      />
+      <Stack.Screen
+        name={feedNavigations.IMAGE_ZOOM}
+        component={ImageZoomScreen}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
