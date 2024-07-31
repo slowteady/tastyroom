@@ -7,9 +7,16 @@ import {useMutation} from '@tanstack/react-query';
 const useMutateFavoritePost = (mutationOptions?: UseMutationCustomOptions) => {
   return useMutation({
     mutationFn: updateFavoritePost,
-    onSuccess: updateId => {
+    onSuccess: updatedId => {
       queryClient.invalidateQueries({
-        queryKey: [queryKeys.POST, queryKeys.GET_POST, updateId],
+        queryKey: [queryKeys.POST, queryKeys.GET_POST, updatedId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [
+          queryKeys.POST,
+          queryKeys.FAVORITE,
+          queryKeys.GET_FAVORITE_POSTS,
+        ],
       });
     },
     ...mutationOptions,

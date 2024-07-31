@@ -28,3 +28,36 @@ export const getDateLocaleFormat = (dateString: Date | string) => {
 
   return `${year}년 ${month}월 ${day}일`;
 };
+
+export const getMonthYearDetails = (initialDate: Date) => {
+  const year = initialDate.getFullYear();
+  const month = initialDate.getMonth() + 1;
+  const startDate = new Date(`${year}-${month}`);
+  const firstDOW = startDate.getDay();
+  const lastDateString = String(
+    new Date(
+      initialDate.getFullYear(),
+      initialDate.getMonth() + 1,
+      0,
+    ).getDate(),
+  );
+  const lastDate = Number(lastDateString);
+
+  return {month, year, startDate, firstDOW, lastDate};
+};
+
+export type MonthYear = {
+  month: number;
+  year: number;
+  startDate: Date;
+  firstDOW: number;
+  lastDate: number;
+};
+
+export const getNewMonthYear = (prevData: MonthYear, increment: number) => {
+  const newMonthYear = new Date(
+    prevData.startDate.setMonth(prevData.startDate.getMonth() + increment),
+  );
+
+  return getMonthYearDetails(newMonthYear);
+};
