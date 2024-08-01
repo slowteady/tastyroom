@@ -20,6 +20,7 @@ import MapView, {
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -47,6 +48,12 @@ const MapHomeScreen = () => {
 
   const handlePressUserLocation = () => {
     if (isUserLocationError) {
+      Toast.show({
+        type: 'error',
+        text1: '위치 권한을 허용해주세요',
+        position: 'bottom',
+      });
+
       return;
     }
 
