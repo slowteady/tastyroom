@@ -1,4 +1,4 @@
-import numbers from '@/constants/numbers';
+import {numbers} from '@/constants';
 import useLocationStore from '@/store/useLocationStore';
 import {useCallback, useEffect, useRef, useState} from 'react';
 import MapView, {LatLng, Region} from 'react-native-maps';

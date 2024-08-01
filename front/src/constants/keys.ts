@@ -9,6 +9,7 @@ export const queryKeys = {
   GET_POSTS: 'getPosts',
   FAVORITE: 'favorite',
   GET_FAVORITE_POSTS: 'getFavoritePosts',
+  GET_CALENDAR_POSTS: 'getCalendarPosts',
 } as const;
 
 export const storageKeys = {

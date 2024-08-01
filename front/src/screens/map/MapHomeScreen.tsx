@@ -1,7 +1,6 @@
 import CustomMarker from '@/components/common/CustomMarker';
 import MarkerModal from '@/components/map/MarkerModal';
-import {alerts, colors, mapNavigations} from '@/constants';
-import numbers from '@/constants/numbers';
+import {alerts, colors, mapNavigations, numbers} from '@/constants';
 import {useGetMarkers} from '@/hooks/queries/useGetMarkers';
 import useModal from '@/hooks/useModal';
 import useMoveMapView from '@/hooks/useMoveMapView';
