@@ -59,3 +59,9 @@ export const logout = async (): Promise<void> => {
   const url = '/auth/logout';
   await axiosInstance.post(url);
 };
+
+export const kakaoLogin = async (token: string): Promise<ResponseToken> => {
+  const {data} = await axiosInstance.post('/auth/oauth/kakao', {token});
+
+  return data;
+};

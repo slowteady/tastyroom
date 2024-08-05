@@ -1,5 +1,6 @@
 import {authNavigations} from '@/constants/navigations';
 import AuthHomeScreen from '@/screens/auth/AuthHomeScreen';
+import KakaoLoginScreen from '@/screens/auth/KakaoLoginScreen';
 import LoginScreen from '@/screens/auth/LoginScreen';
 import SignupScreen from '@/screens/auth/SignupScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -9,6 +10,7 @@ export type AuthStackParamList = {
   [authNavigations.AUTH_HOME]: undefined;
   [authNavigations.LOGIN]: undefined;
   [authNavigations.SIGNUP]: undefined;
+  [authNavigations.KAKAO]: undefined;
 };
 
 const AuthStackNavigator = () => {
@@ -33,6 +35,11 @@ const AuthStackNavigator = () => {
         options={{headerTitle: '로그인'}}
       />
       <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen
+        name={authNavigations.KAKAO}
+        component={KakaoLoginScreen}
+        options={{headerTitle: '카카오 로그인'}}
+      />
     </Stack.Navigator>
   );
 };

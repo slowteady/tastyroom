@@ -8,6 +8,7 @@ export const authNavigations = {
   AUTH_HOME: 'AuthHome',
   LOGIN: 'Login',
   SIGNUP: 'Signup',
+  KAKAO: 'Kakao',
 } as const;
 
 export const mapNavigations = {

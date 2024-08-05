@@ -1,15 +1,17 @@
 import {
   getAccessToken,
   getProfile,
+  kakaoLogin,
   logout,
   postLogin,
   postSignup,
+  ResponseToken,
 } from '@/api/auth';
 import {queryClient} from '@/api/queryClient';
 import {UseMutationCustomOptions, UseQueryCustomOptions} from '@/types/common';
 import {removeEncryptStorage, setEncryptStorage} from '@/utils';
 import {removeHeader, setHeader} from '@/utils/header';
-import {useMutation, useQuery} from '@tanstack/react-query';
+import {MutationFunction, useMutation, useQuery} from '@tanstack/react-query';
 import {useEffect} from 'react';
 
 export const useSignup = (mutationOptions?: UseMutationCustomOptions) => {
@@ -19,12 +21,15 @@ export const useSignup = (mutationOptions?: UseMutationCustomOptions) => {
   });
 };
 
-export const useLogin = (mutationOptions?: UseMutationCustomOptions) => {
+export const useLogin = <T>(
+  loginAPI: MutationFunction<ResponseToken, T>,
+  mutationOptions?: UseMutationCustomOptions,
+) => {
   return useMutation({
-    mutationFn: postLogin,
+    mutationFn: loginAPI,
     onSuccess: ({accessToken, refreshToken}) => {
-      setEncryptStorage('refreshToken', refreshToken);
       setHeader('Authorization', `Bearer ${accessToken}`);
+      setEncryptStorage('refreshToken', refreshToken);
     },
     onSettled: () => {
       queryClient.refetchQueries({queryKey: ['auth', 'getAccessToken']});
@@ -32,6 +37,14 @@ export const useLogin = (mutationOptions?: UseMutationCustomOptions) => {
     },
     ...mutationOptions,
   });
+};
+
+export const useEmailLogin = (mutationOptions?: UseMutationCustomOptions) => {
+  return useLogin(postLogin, mutationOptions);
+};
+
+export const useKakaoLogin = (mutationOptions?: UseMutationCustomOptions) => {
+  return useLogin(kakaoLogin, mutationOptions);
 };
 
 export const useGetRefreshToken = () => {
@@ -88,7 +101,8 @@ export const useAuth = () => {
   const refreshTokenQuery = useGetRefreshToken();
   const getProfileQuery = useGetProfile({enabled: refreshTokenQuery.isSuccess});
   const isLogin = getProfileQuery.isSuccess;
-  const loginMutation = useLogin();
+  const loginMutation = useEmailLogin();
+  const kakaoLoginMutation = useKakaoLogin();
   const logoutMutation = useLogout();
 
   return {
@@ -97,5 +111,6 @@ export const useAuth = () => {
     isLogin,
     getProfileQuery,
     logoutMutation,
+    kakaoLoginMutation,
   };
 };
